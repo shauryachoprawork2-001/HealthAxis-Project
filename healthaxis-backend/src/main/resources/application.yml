@@ -29,6 +29,13 @@ server:
   servlet:
     context-path: /api
 
+jwt:
+  secret: ${JWT_SECRET:healthaxis-super-secret-key-that-is-long-enough-for-hs512-algorithm-production}
+
+  access-token-expiration: ${JWT_ACCESS_EXPIRY:900000}
+
+  refresh-token-expiration: ${JWT_REFRESH_EXPIRY:604800000}
+
 logging:
   level:
     com.healthaxis: DEBUG
