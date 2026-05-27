@@ -23,8 +23,8 @@ RUN chown healthaxis:healthaxis app.jar
 
 USER healthaxis
 
-EXPOSE 8080
+EXPOSE 10000
 
 ENV JAVA_OPTS="-Xms256m -Xmx512m -XX:+UseG1GC -XX:+UseContainerSupport"
 
-ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar app.jar"]
+ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -Dserver.port=10000 -jar app.jar"]
