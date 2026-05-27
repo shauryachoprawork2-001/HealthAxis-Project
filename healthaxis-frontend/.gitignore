@@ -1,0 +1,10 @@
+healthaxis-frontend/node_modules
+healthaxis-frontend/dist
+
+healthaxis-backend/build
+healthaxis-backend/.gradle
+healthaxis-backend/out
+healthaxis-backend/target
+
+.idea
+.env

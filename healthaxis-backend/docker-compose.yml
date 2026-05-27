@@ -1,0 +1,58 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: healthaxis_db
+    environment:
+      POSTGRES_DB: healthaxis
+      POSTGRES_USER: healthaxis_user
+      POSTGRES_PASSWORD: healthaxis_pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U healthaxis_user -d healthaxis"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: healthaxis_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: .
+    container_name: healthaxis_backend
+    ports:
+      - "8080:8080"
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: healthaxis
+      DB_USERNAME: healthaxis_user
+      DB_PASSWORD: healthaxis_pass
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      JWT_SECRET: healthaxis-production-secret-key-minimum-64-chars-long-for-hs512
+      SERVER_PORT: 8080
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  redis_data:
