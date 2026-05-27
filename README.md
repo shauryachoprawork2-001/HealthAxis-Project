@@ -338,15 +338,10 @@ This project demonstrates practical implementation of:
 
 # 👨‍💻 Author
 
-## Kannan Mehra
+## Shaurya Chopra
 
 Full Stack Developer focused on scalable enterprise applications, healthcare systems, and modern web technologies.
 
-GitHub Repository:
-
-[HealthAxis-Project Repository](https://github.com/kannan05-m/HealthAxis-Project?utm_source=chatgpt.com)
-
----
 
 # 📜 License
 
